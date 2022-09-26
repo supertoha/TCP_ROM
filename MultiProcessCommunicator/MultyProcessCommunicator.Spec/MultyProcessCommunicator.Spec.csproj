@@ -16,7 +16,10 @@
 
   <ItemGroup>
     <Folder Include="Drivers\" />
-    <Folder Include="Support\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MultiProcessCommunicator\MultiProcessCommunicator.csproj" />
   </ItemGroup>
 
 </Project>
