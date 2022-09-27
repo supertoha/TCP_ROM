@@ -9,7 +9,7 @@ Enviroment: C#, .NET Standart 2.0
 - Easy to use
 
 ## Usage
-### Step 1. Define interface for Client
+### Step 1. Define the same interface for Client and Server
 ```csharp
     using MultiProcessCommunicator;
     public interface ICalculator : IMpcService
@@ -18,7 +18,7 @@ Enviroment: C#, .NET Standart 2.0
     }
 ```
 
-### Step 2. Implement interface for server side
+### Step 2. Implement interface for the Server side
 ```csharp
     public class ServerSideCalculator : ICalculator
     {
