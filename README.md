@@ -31,6 +31,29 @@ Enviroment: C#, .NET Standart 2.0
         }
     }
 ```
+### Step 3. Run Server
+```
+    var port = 8888;
+    var serverInstance = new ServerSideCalculator();
+    MpcManager.CreateServer<ICalculator>(serverInstance, port);
+```
+
+### Step 4. Connect to remote Server
+```
+    var port = 8888;
+    var client = MpcManager.CreateClient<ICalculator>();
+    if(!client.Connect("localhost", port))
+    {
+        // connection is not established
+    }
+```
+
+### Step 5. Execute remote method
+```
+    var result = client.Sum(1, 2);
+    Console.WriteLine($"Result is: {result}");
+```
+
 
 ## Perfomance
 10000 executes per second 
