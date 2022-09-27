@@ -5,7 +5,7 @@ TCP_ROM is multi process communication library
 Enviroment: C#, .NET Standart 2.0
 
 ## Features
-- Remote Object Mapping (throught Interface)
+- Remote Object Mapping (through Interface)
 - Easy to use
 
 ## Usage
