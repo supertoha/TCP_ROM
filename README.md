@@ -42,8 +42,9 @@ Enviroment: C#, .NET Standart 2.0
 ### Step 4. Connect to remote Server
 ```csharp
     var port = 8888;
+    var host = "localhost";
     var client = MpcManager.CreateClient<ICalculator>();
-    if(!client.Connect("localhost", port))
+    if(!client.Connect(host, port))
     {
         // connection is not established
     }
@@ -53,6 +54,14 @@ Enviroment: C#, .NET Standart 2.0
 ```csharp
     var result = client.Sum(1, 2);
     Console.WriteLine($"Result is: {result}");
+```
+```mermaid
+sequenceDiagram
+Client ->> Server: Connect
+Server-->>Client: connected: True
+
+Client ->> Server: Sum(1,2)
+Server-->>Client: result: 3
 ```
 
 
