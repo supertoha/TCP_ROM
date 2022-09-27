@@ -15,20 +15,14 @@ namespace MultiProcessCommunicator.Client
     {
         public ClientDecorator() : base()
         {
-            //_log = LogManager.GetLogger("ClientDecorator");
-
             this._clientId = Guid.NewGuid().GetHashCode();
             this._client = new MpcTcpClient(this);
-
-            //_instanceId = Guid.NewGuid().GetHashCode();
         }
 
-        //private int _instanceId;
         protected static TimeSpan ResponceTimeout = TimeSpan.FromSeconds(60);
         private ConcurrentDictionary<int, ServerReqRespMessage> _serverResponces = new ConcurrentDictionary<int, ServerReqRespMessage>();
         private readonly MpcTcpClient _client;
         private readonly int _clientId;
-        //private ILog _log;
 
         public void PushServerResponceToCollection(byte[] serverResponce, int lenght)
         {
@@ -120,7 +114,7 @@ namespace MultiProcessCommunicator.Client
             watcher.Start();
             while (this._client.IsConnected)//true
             {
-                Thread.Sleep(1);
+                //Thread.Sleep(1);
 
                 if (reqRespMessage.ResponseStatus != ServerResponseCode.Unknown)
                     break;

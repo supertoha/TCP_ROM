@@ -8,7 +8,7 @@ using MultiProcessCommunicator.Client;
 
 namespace MultiProcessCommunicator.Server
 {
-    public class MpcTcpServer
+    internal class MpcTcpServer
     {
         public MpcTcpServer(int port, ServerInstance serverContext)
         {

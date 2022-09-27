@@ -1,11 +1,9 @@
 ﻿using MultiProcessCommunicator.Internal;
 using MultiProcessCommunicator.Server;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Text;
 
 namespace MultiProcessCommunicator.Client
 {
@@ -20,13 +18,8 @@ namespace MultiProcessCommunicator.Client
             this._clientSocket = clientSocket;
 
             this._testRequestTime = DateTime.Now;
-
-            //_log = LogManager.GetLogger("ClientRequestMessage");
-            //_instanceId = Guid.NewGuid().GetHashCode();
         }
 
-        //private int _instanceId;
-        //private ILog _log;
         private MethodInfo _serverMethod;
         private object[] _inputParams;
         private ServerInstance _serverInstance;
@@ -47,7 +40,7 @@ namespace MultiProcessCommunicator.Client
                 serverSideMethodExecutionStatus = ServerResponseCode.Exception;
             }
 
-            // pack responce and send to Client
+            // pack response and send to Client
             using (var ms = new MemoryStream())
             {
                 using (var writer = new BinaryWriter(ms))

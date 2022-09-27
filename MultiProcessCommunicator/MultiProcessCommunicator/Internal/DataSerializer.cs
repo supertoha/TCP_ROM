@@ -203,7 +203,6 @@ namespace MultiProcessCommunicator.Internal
                 throw new NotSupportedException($"type {type} not supported");
             }
 
-            return null;
         }
     }
 }

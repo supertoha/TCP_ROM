@@ -15,16 +15,10 @@ namespace MultiProcessCommunicator.Server
     {
         public ServerInstance(int port)
         {
-            //_log = LogManager.GetLogger("ServerInstance");
-            //_instanceId = Guid.NewGuid().GetHashCode();
-            //_log.Info($"[{_instanceId}] Created ServerInstance");
-
             this._server = new MpcTcpServer(port, this);
             this._server.StartServer();
         }
 
-        //private int _instanceId;
-        //private ILog _log;
         private MpcTcpServer _server;
 
         protected void StartServerThreadIfNeed()
@@ -49,7 +43,7 @@ namespace MultiProcessCommunicator.Server
                         var returnResult = message.Execute();
                     }
 
-                    Thread.Sleep(1);
+                    //Thread.Sleep(1);
                 }
                 catch (Exception)
                 { }
@@ -85,8 +79,6 @@ namespace MultiProcessCommunicator.Server
                     var requestId = reader.ReadInt32();
                     var serviceId = reader.ReadInt32();
                     var methodId = reader.ReadInt32();
-
-                    //_log.Info($"[{_instanceId}] got request {requestId};");
 
                     var serverSide = MpcManager.GetService(serviceId);
 
