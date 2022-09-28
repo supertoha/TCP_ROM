@@ -1,6 +1,8 @@
 ﻿Feature: ClientServer
 
-A short summary of the feature
+Ability to connect to remote or local server through port 8888.
+Then execute remote method.
+
 
 @connection
 Scenario: Create Client and Server

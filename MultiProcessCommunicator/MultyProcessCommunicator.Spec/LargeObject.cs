@@ -2,6 +2,9 @@
 
 namespace MultyProcessCommunicator.Spec
 {
+    /// <summary>
+    /// Large object implementation for test reasons
+    /// </summary>
     public class LargeObject
     {
         public byte[] Data { get; set; }

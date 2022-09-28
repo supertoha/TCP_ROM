@@ -1,10 +1,10 @@
 ﻿using MultiProcessCommunicator;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MultyProcessCommunicator.Spec
 {
+    /// <summary>
+    /// interface definition for Client and Server
+    /// </summary>
     public interface ICalculator : IMpcService
     {
         int Sum(int a, int b);

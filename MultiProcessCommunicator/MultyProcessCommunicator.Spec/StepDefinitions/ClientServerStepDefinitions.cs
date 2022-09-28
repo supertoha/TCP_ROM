@@ -9,12 +9,10 @@ namespace MultyProcessCommunicator.Spec.StepDefinitions
     [Binding]
     public sealed class ClientServerStepDefinitions
     {
-        private readonly ScenarioContext _scenarioContext;
         private readonly FeatureContext _featureContext;
 
-        public ClientServerStepDefinitions(ScenarioContext scenarioContext, FeatureContext featureContext)
+        public ClientServerStepDefinitions(FeatureContext featureContext)
         {
-            _scenarioContext = scenarioContext;
             _featureContext = featureContext;   
         }
 
