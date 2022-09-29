@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>TCP_ROM</PackageId>
+    <Title>TCP_ROM is multi process communication library</Title>
+    <Authors>supertoha</Authors>
+    <Company>supertoha</Company>
+    <PackageProjectUrl>https://github.com/supertoha/TCP_ROM</PackageProjectUrl>
+    <PackageTags>TCP, ROM, Remote</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

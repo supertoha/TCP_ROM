@@ -60,7 +60,7 @@ sequenceDiagram
 Client ->> Server: Connect
 Server-->>Client: connected: True
 
-Client ->> Server: Sum(1,2)
+Client ->> Server: Sum(1, 2)
 Server-->>Client: result: 3
 ```
 
