@@ -1,3 +1,6 @@
+[![NuGet Badge](https://buildstats.info/nuget/TCP_ROM)](https://www.nuget.org/packages/TCP_ROM)
+
+
 # TCP_ROM
 
 TCP_ROM is multi process communication library
@@ -7,9 +10,14 @@ Enviroment: C#, .NET Standart 2.0
 ## Features
 - Remote Object Mapping (through Interface)
 - Easy to use
+- Lightweight 
+- BDD Tested
 
 ## Usage
-### Step 1. Define the same interface for Client and Server
+### Step 1. Install from Nuget
+Nuget package name: **TCP_ROM**
+
+### Step 2. Define the same interface for Client and Server
 ```csharp
     using MultiProcessCommunicator;
     public interface ICalculator : IMpcService
@@ -18,7 +26,7 @@ Enviroment: C#, .NET Standart 2.0
     }
 ```
 
-### Step 2. Implement interface for the Server side
+### Step 3. Implement interface for the Server side
 ```csharp
     public class ServerSideCalculator : ICalculator
     {
@@ -32,14 +40,14 @@ Enviroment: C#, .NET Standart 2.0
         }
     }
 ```
-### Step 3. Run Server
+### Step 4. Run Server
 ```csharp
     var port = 8888;
     var serverInstance = new ServerSideCalculator();
     MpcManager.CreateServer<ICalculator>(serverInstance, port);
 ```
 
-### Step 4. Connect to remote Server
+### Step 5. Connect to remote Server
 ```csharp
     var port = 8888;
     var host = "localhost";
@@ -50,7 +58,7 @@ Enviroment: C#, .NET Standart 2.0
     }
 ```
 
-### Step 5. Execute remote method
+### Step 6. Execute remote method
 ```csharp
     var result = client.Sum(1, 2);
     Console.WriteLine($"Result is: {result}");
@@ -66,7 +74,7 @@ Server-->>Client: result: 3
 
 
 ## Perfomance
-~10000 executes per second 
+~15000 executes per second 
 
 
 

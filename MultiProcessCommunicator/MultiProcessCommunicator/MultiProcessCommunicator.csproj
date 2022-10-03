@@ -7,7 +7,12 @@
     <Authors>supertoha</Authors>
     <Company>supertoha</Company>
     <PackageProjectUrl>https://github.com/supertoha/TCP_ROM</PackageProjectUrl>
-    <PackageTags>TCP, ROM, Remote</PackageTags>
+    <PackageTags>TCP, ROM, remote, messaging, protocol, socket, network, dotnet, queue, client, server, broker, NETStandard</PackageTags>
+    <Description>TCP_ROM is multi process communication library. It provides Client and Server.</Description>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
