@@ -185,7 +185,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 20
- testRunner.Given("Set random input buffer size 100 bytes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("Set random input buffer size 10 bytes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
  testRunner.And("Execute method Concatenate 10000 times", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");

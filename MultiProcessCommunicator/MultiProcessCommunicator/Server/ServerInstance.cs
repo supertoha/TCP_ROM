@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace MultiProcessCommunicator.Server
 {
@@ -20,6 +21,7 @@ namespace MultiProcessCommunicator.Server
         }
 
         private MpcTcpServer _server;
+        private Dictionary<int, MethodInfo> _metcodsCache = new Dictionary<int, MethodInfo>();
 
         protected void StartServerThreadIfNeed()
         {
@@ -33,17 +35,15 @@ namespace MultiProcessCommunicator.Server
         protected void ServerThread()
         {
             this._isServerThreadStarted = new CancellationTokenSource();
+            ClientRequestMessage message = null;
             while (this._isServerThreadStarted.IsCancellationRequested == false)
             {
                 try
-                {
-                    ClientRequestMessage message = null;
+                {                    
                     if (this._clientRequests.TryDequeue(out message))
                     {
-                        var returnResult = message.Execute();
+                        var returnResult = message.Execute();                        
                     }
-
-                    //Thread.Sleep(1);
                 }
                 catch (Exception)
                 { }
@@ -70,40 +70,54 @@ namespace MultiProcessCommunicator.Server
 
             this.StartServerThreadIfNeed();
 
-            using (var ms = new MemoryStream(clientRequestData, 0, length, false))
+            using (var ms = new MemoryStream(clientRequestData, 0, length, false))            
+            using (var reader = new BinaryReader(ms))
             {
-                using (var reader = new BinaryReader(ms))
+                var packetLen = reader.ReadInt32();
+                var clientId = reader.ReadInt32();
+                var requestId = reader.ReadInt32();
+                var serviceId = reader.ReadInt32();
+                var methodId = reader.ReadInt32();
+
+                var serverSide = MpcManager.GetService(serviceId);
+
+                if (serverSide == null)
+                    return;
+
+                var serverSideMethod = serverSide.GetMethodWithCache(methodId);
+
+                var inputParametrsInfo = serverSideMethod.GetParameters();
+
+                var inputParams = new object[inputParametrsInfo.Length];
+
+                for (int i = 0; i < inputParametrsInfo.Length; i++)
                 {
-                    var packetLen = reader.ReadInt32();
-                    var clientId = reader.ReadInt32();
-                    var requestId = reader.ReadInt32();
-                    var serviceId = reader.ReadInt32();
-                    var methodId = reader.ReadInt32();
-
-                    var serverSide = MpcManager.GetService(serviceId);
-
-                    if (serverSide == null)
-                        return;
-
-                    var serverSideMethod = serverSide.GetMethod(methodId);
-
-                    var inputParametrsInfo = serverSideMethod.GetParameters();
-
-                    var inputParams = new object[inputParametrsInfo.Length];
-
-                    for (int i = 0; i < inputParametrsInfo.Length; i++)
-                    {
-                        var paramInfo = inputParametrsInfo[i];
-                        var paramValue = DataSerializer.Deserialize(reader, paramInfo.ParameterType);
-                        inputParams[i] = paramValue;
-                    }
-
-                    var clientRequestMessage = new ClientRequestMessage(serverSideMethod, inputParams, serverSide, requestId, clientSocket);
-                    this._clientRequests.Enqueue(clientRequestMessage);
-
+                    var paramInfo = inputParametrsInfo[i];
+                    var paramValue = DataSerializer.Deserialize(reader, paramInfo.ParameterType);
+                    inputParams[i] = paramValue;
                 }
+
+                var clientRequestMessage = new ClientRequestMessage(serverSideMethod, inputParams, serverSide, requestId, clientSocket);
+                this._clientRequests.Enqueue(clientRequestMessage);
+
             }
+            
         }
+
+
+        public MethodInfo GetMethodWithCache(int methodId)
+        {
+            MethodInfo result = null;
+            if (this._metcodsCache.TryGetValue(methodId, out result))            
+                return result;
+
+            result = GetMethod(methodId);
+            if(result!=null)
+                this._metcodsCache.Add(methodId, result);
+
+            return result;
+        }
+
 
         public MethodInfo GetMethod(int methodId)
         {

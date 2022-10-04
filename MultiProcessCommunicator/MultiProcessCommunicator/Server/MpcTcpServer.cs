@@ -46,7 +46,6 @@ namespace MultiProcessCommunicator.Server
 
                     var receiveThread = new Thread(() => { client.Receive(); });
                     receiveThread.Start();
-                    //Task.Run(() => client.Receive());
                 }
                 catch
                 {

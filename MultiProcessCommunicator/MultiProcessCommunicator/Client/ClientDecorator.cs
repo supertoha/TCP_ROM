@@ -2,12 +2,10 @@
 using MultiProcessCommunicator.Server;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Text;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace MultiProcessCommunicator.Client
 {
@@ -88,7 +86,7 @@ namespace MultiProcessCommunicator.Client
 
                     foreach (var argVal in args)
                     {
-                        var paramType = argVal.GetType();// type will be detected previousli?
+                        var paramType = argVal.GetType();// type will be detected previously?
                         DataSerializer.Serialize(writer, argVal, paramType);
                     }
 
@@ -112,18 +110,14 @@ namespace MultiProcessCommunicator.Client
 
             var watcher = new Stopwatch();
             watcher.Start();
-            while (this._client.IsConnected)//true
-            {
-                //Thread.Sleep(1);
 
+            while (this._client.IsConnected)
+            {
                 if (reqRespMessage.ResponseStatus != ServerResponseCode.Unknown)
                     break;
 
                 if (watcher.Elapsed > ResponceTimeout)
-                {
-                    //_log.Info($"[{_instanceId}] request id {requestId} timeout \n");
                     break;
-                }
             }
 
             var result = reqRespMessage.ResponseObject;
@@ -131,10 +125,9 @@ namespace MultiProcessCommunicator.Client
             if (reqRespMessage.ResponseStatus == ServerResponseCode.Exception)
                 throw new ServerException($"Unknown exception on the server side {methodSignature}");
 
-            if (this._serverResponces.TryRemove(requestId, out reqRespMessage))
-            {
-                //_log.Info($"[{_instanceId}] request id {requestId} remived from dictionary \n");
-            }
+
+            this._serverResponces.TryRemove(requestId, out reqRespMessage);
+            
 
             return result;
 

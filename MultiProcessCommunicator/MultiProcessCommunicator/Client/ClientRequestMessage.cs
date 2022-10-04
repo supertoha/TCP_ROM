@@ -16,8 +16,6 @@ namespace MultiProcessCommunicator.Client
             this._serverInstance = serverInstance;
             this._requestId = requestId;
             this._clientSocket = clientSocket;
-
-            this._testRequestTime = DateTime.Now;
         }
 
         private MethodInfo _serverMethod;
@@ -25,7 +23,6 @@ namespace MultiProcessCommunicator.Client
         private ServerInstance _serverInstance;
         private int _requestId;
         private Socket _clientSocket;
-        private DateTime _testRequestTime;
 
         public bool Execute()
         {
@@ -60,10 +57,6 @@ namespace MultiProcessCommunicator.Client
                 Buffer.BlockCopy(firstBytes, 0, responseData, 0, 4);
 
                 this._clientSocket.Send(responseData);
-
-                var processTime = DateTime.Now - this._testRequestTime;
-
-                //_log.Info($"[{_instanceId}] send responce {_requestId} to client; process time {processTime}; response size {responseData.Length}");
             }
 
             return true;

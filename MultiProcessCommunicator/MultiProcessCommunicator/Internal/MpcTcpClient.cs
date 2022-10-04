@@ -17,7 +17,6 @@ namespace MultiProcessCommunicator.Internal
         protected ClientDecorator _mpcObject;
         protected bool _isConnected = false;
         protected Socket _socket = null;
-        public DateTime LastRequestTime { get; set; }
 
         public bool IsConnected
         {
@@ -42,7 +41,7 @@ namespace MultiProcessCommunicator.Internal
                 this._socket.Connect(server, port);
                 StartReceive();
             }
-            catch (Exception exc)
+            catch (SocketException)
             {
                 this._isConnected = false;
                 return false;
@@ -91,18 +90,12 @@ namespace MultiProcessCommunicator.Internal
                         offset += partLen;
                     }
 
-                    try
-                    {
-                        this._mpcObject.PushServerResponceToCollection(packetBuff, packetLen);
-                    }
-                    catch (Exception exc)
-                    {
-                        Console.WriteLine("Exception:" + exc.Message);
-                    }
+
+                    this._mpcObject.PushServerResponceToCollection(packetBuff, packetLen);
+
                 }
-                catch (Exception exc)
+                catch (Exception)
                 {
-                    Console.WriteLine($"fatal receive exception {exc}");
                     CheckConnection();
                     return;
                 }
@@ -124,16 +117,10 @@ namespace MultiProcessCommunicator.Internal
             {
                 var sendData = this._socket.Send(inputMessage, SocketFlags.None);
 
-                if (inputMessage.Length != sendData)
-                    Console.WriteLine("not all data sent");
-
-                LastRequestTime = DateTime.Now;
-
                 return true;
             }
-            catch (Exception e)
+            catch (SocketException)
             {
-                Console.WriteLine($"sending data to server exception {e}");
                 CheckConnection();
                 return false;
             }

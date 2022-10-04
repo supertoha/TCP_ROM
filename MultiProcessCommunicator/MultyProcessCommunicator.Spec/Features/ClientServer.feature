@@ -17,6 +17,6 @@ Scenario: Execute a remote method Sum
 
 @perfomance
 Scenario: Performance test
-	Given Set random input buffer size 100 bytes
+	Given Set random input buffer size 10 bytes
 	And Execute method Concatenate 10000 times
 	Then Sped will more then 10000 executes per second
