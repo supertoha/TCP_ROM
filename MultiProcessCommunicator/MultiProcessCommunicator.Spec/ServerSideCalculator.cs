@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MultyProcessCommunicator.Spec
+namespace MultiProcessCommunicator.Spec
 {
     public class ServerSideCalculator : ICalculator
     {
