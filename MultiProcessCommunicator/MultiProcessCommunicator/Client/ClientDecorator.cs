@@ -18,7 +18,7 @@ namespace MultiProcessCommunicator.Client
         }
 
         protected static TimeSpan ResponseTimeout = TimeSpan.FromSeconds(60);
-        private ConcurrentDictionary<int, ServerReqRespMessage> _serverResponses = new ConcurrentDictionary<int, ServerReqRespMessage>();
+        private ConcurrentDictionary<int, ServerReqResponseMessage> _serverResponses = new ConcurrentDictionary<int, ServerReqResponseMessage>();
         private readonly MpcTcpClient _client;
         private readonly int _clientId;
 
@@ -32,7 +32,7 @@ namespace MultiProcessCommunicator.Client
                     var requestId = reader.ReadInt32();
                     var executionStatusCode = (ServerResponseCode)reader.ReadInt32();
 
-                    ServerReqRespMessage requestObject = null;
+                    ServerReqResponseMessage requestObject = null;
                     if (this._serverResponses.TryGetValue(requestId, out requestObject))
                     {
                         if (requestObject.ReturnType != null && requestObject.ReturnType != typeof(void) && executionStatusCode == ServerResponseCode.Ok)
@@ -97,7 +97,7 @@ namespace MultiProcessCommunicator.Client
                 }
             }
 
-            var reqRespMessage = new ServerReqRespMessage(requestId, returnType);
+            var reqRespMessage = new ServerReqResponseMessage(requestId, returnType);
             this._serverResponses.TryAdd(requestId, reqRespMessage);
 
             var sendResult = this._client.SendMessage(requestData);
@@ -126,8 +126,7 @@ namespace MultiProcessCommunicator.Client
                 throw new ServerException($"Unknown exception on the server side {methodSignature}");
 
 
-            this._serverResponses.TryRemove(requestId, out reqRespMessage);
-            
+            this._serverResponses.TryRemove(requestId, out reqRespMessage);            
 
             return result;
 
