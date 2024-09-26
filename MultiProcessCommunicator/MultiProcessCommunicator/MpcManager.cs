@@ -47,8 +47,8 @@ namespace MultiProcessCommunicator
 
             return new MpcServer(() => {
 
-                foreach (var instanseKey in serverInstances.Keys)
-                    MpcManager.ServerInstances.Remove(instanseKey);
+                foreach (var instanceKey in serverInstances.Keys)
+                    MpcManager.ServerInstances.Remove(instanceKey);
 
                 serverInstance.Stop();
             });

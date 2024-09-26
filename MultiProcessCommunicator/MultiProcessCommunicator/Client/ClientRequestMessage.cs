@@ -26,11 +26,11 @@ namespace MultiProcessCommunicator.Client
 
         public bool Execute()
         {
-            object serverSideResponce = null;
+            object serverSideResponse = null;
             var serverSideMethodExecutionStatus = ServerResponseCode.Ok;
             try
             {
-                serverSideResponce = this._serverMethod.Invoke(this._serverInstance.Instance, this._inputParams);
+                serverSideResponse = this._serverMethod.Invoke(this._serverInstance.Instance, this._inputParams);
             }
             catch/* (Exception exc)*/
             {
@@ -49,7 +49,7 @@ namespace MultiProcessCommunicator.Client
                     var responseType = this._serverMethod.ReturnType;
 
                     if (serverSideMethodExecutionStatus == ServerResponseCode.Ok && responseType != null && responseType != typeof(void))
-                        DataSerializer.Serialize(writer, serverSideResponce, responseType);
+                        DataSerializer.Serialize(writer, serverSideResponse, responseType);
                 }
 
                 var responseData = ms.ToArray();

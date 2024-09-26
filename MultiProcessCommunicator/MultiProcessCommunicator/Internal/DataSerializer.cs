@@ -92,10 +92,10 @@ namespace MultiProcessCommunicator.Internal
             {
                 var typeProperties = type.GetProperties();
 
-                foreach (var proertyInfo in typeProperties)
+                foreach (var propertyInfo in typeProperties)
                 {
-                    var propertyValue = proertyInfo.GetValue(value);
-                    Serialize(writer, propertyValue, proertyInfo.PropertyType);
+                    var propertyValue = propertyInfo.GetValue(value);
+                    Serialize(writer, propertyValue, propertyInfo.PropertyType);
                 }
             }
             else

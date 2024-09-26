@@ -1,8 +1,6 @@
 ﻿using MultiProcessCommunicator.Client;
 using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 
 namespace MultiProcessCommunicator.Internal
@@ -66,7 +64,6 @@ namespace MultiProcessCommunicator.Internal
             {
                 try
                 {
-
                     var markerRead = this._socket.Receive(startBuff);
 
                     if (markerRead < 4)
@@ -90,8 +87,7 @@ namespace MultiProcessCommunicator.Internal
                         offset += partLen;
                     }
 
-
-                    this._mpcObject.PushServerResponceToCollection(packetBuff, packetLen);
+                    this._mpcObject.PushServerResponseToCollection(packetBuff, packetLen);
 
                 }
                 catch (Exception)

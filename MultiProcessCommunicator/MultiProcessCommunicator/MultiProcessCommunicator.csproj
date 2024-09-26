@@ -12,7 +12,7 @@
     <AssemblyVersion>1.0.2.0</AssemblyVersion>
     <FileVersion>1.0.2.0</FileVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>

@@ -6,9 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MultiProcessCommunicator.Server
 {
@@ -21,7 +19,7 @@ namespace MultiProcessCommunicator.Server
         }
 
         private MpcTcpServer _server;
-        private Dictionary<int, MethodInfo> _metcodsCache = new Dictionary<int, MethodInfo>();
+        private Dictionary<int, MethodInfo> _methodsCache = new Dictionary<int, MethodInfo>();
 
         protected void StartServerThreadIfNeed()
         {
@@ -86,13 +84,13 @@ namespace MultiProcessCommunicator.Server
 
                 var serverSideMethod = serverSide.GetMethodWithCache(methodId);
 
-                var inputParametrsInfo = serverSideMethod.GetParameters();
+                var inputParametersInfo = serverSideMethod.GetParameters();
 
-                var inputParams = new object[inputParametrsInfo.Length];
+                var inputParams = new object[inputParametersInfo.Length];
 
-                for (int i = 0; i < inputParametrsInfo.Length; i++)
+                for (int i = 0; i < inputParametersInfo.Length; i++)
                 {
-                    var paramInfo = inputParametrsInfo[i];
+                    var paramInfo = inputParametersInfo[i];
                     var paramValue = DataSerializer.Deserialize(reader, paramInfo.ParameterType);
                     inputParams[i] = paramValue;
                 }
@@ -108,12 +106,12 @@ namespace MultiProcessCommunicator.Server
         public MethodInfo GetMethodWithCache(int methodId)
         {
             MethodInfo result = null;
-            if (this._metcodsCache.TryGetValue(methodId, out result))            
+            if (this._methodsCache.TryGetValue(methodId, out result))            
                 return result;
 
             result = GetMethod(methodId);
-            if(result!=null)
-                this._metcodsCache.Add(methodId, result);
+            if (result != null)
+                this._methodsCache.Add(methodId, result);
 
             return result;
         }
