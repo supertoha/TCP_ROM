@@ -1,13 +1,9 @@
-<p align="center">
-<img src="https://github.com/supertoha/TCP_ROM/blob/main/assets/img/tcp_rom.png?raw=true" width="192">
-<br/>
-</p>
-
-
 # TCP_ROM
-[![NuGet Badge](https://buildstats.info/nuget/TCP_ROM)](https://www.nuget.org/packages/TCP_ROM)
 
 TCP_ROM is multi process communication library
+
+![NuGet Version](https://img.shields.io/nuget/v/TCP_ROM)
+![NuGet Downloads](https://img.shields.io/nuget/dt/TCP_ROM)
 
 Enviroment: C#, .NET Standart 2.0
 
